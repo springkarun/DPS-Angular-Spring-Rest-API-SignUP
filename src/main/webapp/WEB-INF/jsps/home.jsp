@@ -91,28 +91,35 @@
 
 			</div>
 
-			<div ng-controller="getcustomerController" class="col-md-3">
-				<h3>Student by ID</h3>
+			<div ng-controller="getcustomerControllerrollNo" class="col-md-3">
+				<h3>Student by Roll No</h3>
 
 				<input type="text" class="form-control" style="width: 100px;"
-					ng-model="id" /> <br />
+					ng-model="rollNo" /> <br />
 				<button ng-click="getCustomer()">Get Customer</button>
 
 				<div ng-show="showCustomer">
 
-					ID : {{s.data.id}}<br />
-					Roll No: {{s.data.rollNo}}<br />
-					Full Name: {{s.data.name}}<br />
-					Email : {{s.data.email}}<br />
-					Mobile: {{s.data.mobile}}<br />
-					Address: {{s.data.addess}}<br />
+					<ul class="list-group">
+						<li ng-repeat="s in allData.data"><h4 class="list-group-item">
+							<strong>Students {{$index+1}}</strong><br />
 
+							Roll No: {{s.rollNo}}<br />
+							Full Name: {{s.name}}<br />
+							Email : {{s.email}}<br />
+							Mobile: {{s.mobile}}<br />
+							Course: {{s.course}}<br />
+							Age: {{s.age}}<br />
+							Gender: {{s.gender}}<br />
+							Address: {{s.addess}}<br />
+						</h4> </li>
+					</ul>
 				</div>
 				<p>{{getResultMessage}}</p>
 			</div>
 
 			<div ng-controller="getcustomersbylastnameController" class="col-md-4">
-				<h3>Student by Roll No</h3>
+				<h3>Student by ID</h3>
 
 				<input type="text" class="form-control" style="width: 100px;" ng-model="rollNo" /><br />
 				<button ng-click="getCustomersByLastName()">Get Customers</button>

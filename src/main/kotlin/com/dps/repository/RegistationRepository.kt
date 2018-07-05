@@ -1,4 +1,4 @@
-package com.dps.repo
+package com.dps.repository
 
 import com.dps.model.RegistationModel
 import org.springframework.data.mongodb.repository.MongoRepository
@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.Query
 
 
 interface RegistationRepository : MongoRepository<RegistationModel, String> {
-
 
     fun findByRollNo(rollNo: String): List<RegistationModel>
 
@@ -16,7 +15,7 @@ interface RegistationRepository : MongoRepository<RegistationModel, String> {
   //  @Query(value = "{'_id':'MC6684'},{'password':'kk534'}")
    // @Query("{'$or':[ {'A':10}, {'B':20} ] }")
 
-    @Query("{passwords : ?0}")
-    fun findByPassword(passwords: String):List<RegistationModel>
+  //  @Query("{passwords : ?0}")
+  //  fun findByPassword(passwords: String):List<RegistationModel>*/
 
 }

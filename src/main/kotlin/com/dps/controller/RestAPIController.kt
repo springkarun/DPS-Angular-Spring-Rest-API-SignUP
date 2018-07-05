@@ -1,19 +1,39 @@
 package com.dps.controller
 
 import com.dps.model.RegistationModel
-import com.dps.model.ResponseModel
-import com.dps.repo.RegistationRepository
+import com.dps.service.RegistationService
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping(value = ["/api"])
-class APIController {
+class RestAPIController {
 
 
+    @Autowired
+    private var registationService: RegistationService? = null
+
+
+    @PostMapping("/student_registation")
+    private fun studentRegistation(@RequestBody studentModel: RegistationModel): Any {
+       return registationService!!.saveStudent(studentModel)
+    }
+
+
+    @GetMapping("/showAllStudent" )
+    fun showAllStudent():Any=registationService!!.showAllStudent()
+
+
+    @GetMapping("/findByRollNo/{rollNo}" )
+    fun findByRollNo(@PathVariable("rollNo") rollNo:String):Any=registationService!!.findByRollNo(rollNo)
+
+
+}
+
+/*
 
 
     @Autowired
@@ -69,9 +89,10 @@ class APIController {
         return ResponseEntity(ResponseModel(true, "Registation is create successfully.", customerRepository!!.findAll()), HttpStatus.CREATED)
     }
 
+*/
 
 
-}
+
 
 
 /* @GetMapping(value = ["/customer"])

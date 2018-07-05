@@ -8,15 +8,15 @@ var app = angular.module('app', []);
         .module('app')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
-    function RegisterController(UserService, $location, $rootScope, FlashService) {
+    RegisterController.$inject = ['RegistationService', '$location', '$rootScope', 'FlashService'];
+    function RegisterController(RegistationService, $location, $rootScope, FlashService) {
         var vm = this;
 
         vm.register = register;
 
         function register() {
             vm.dataLoading = true;
-            UserService.Create(vm.user)
+            RegistationService.Create(vm.user)
                 .then(function (response) {
                     if (response.success) {
                         FlashService.Success('Registration successful', true);
@@ -52,7 +52,7 @@ app.controller('loginController', function($scope, $http, $location) {
         $http.post(url, data, config).then(function (response) {
 
             if (response.data.status === true) {
-                $scope.postResultMessage = response.data.mess
+                $scope.postResultMessage = response.data.mess;
                 $location.path('home');
             }
 
@@ -92,7 +92,7 @@ app.controller('postController', function($scope, $http, $location) {
         };
 
 		$http.post(url, data, config).then(function (response) {
-			$scope.postResultMessage = "Sucessful!";
+			$scope.postResultMessage = response.data.mess;
 		}, function (response) {
 			$scope.postResultMessage = "Fail!";
 		});
@@ -115,7 +115,7 @@ app.controller('getallcustomersController', function($scope, $http, $location) {
 	$scope.showAllCustomers = false;
 
 	$scope.getAllCustomers = function() {
-		var url = $location.absUrl() + "api/all_student";
+		var url = $location.absUrl() + "api/showAllStudent";
 
 		var config = {
 			headers : {
@@ -126,6 +126,7 @@ app.controller('getallcustomersController', function($scope, $http, $location) {
        $http.get(url,config).then(function(response) {
 
 			if (response.data.status === true) {
+                $scope.getResultMessage = response.data.mess;
 				$scope.allcustomers = response.data;
 				$scope.showAllCustomers = true;
 
@@ -141,13 +142,12 @@ app.controller('getallcustomersController', function($scope, $http, $location) {
 });
 
 
-app.controller('getcustomerController', function($scope, $http, $location) {
+app.controller('getcustomerControllerrollNo', function($scope, $http, $location) {
 	
 	$scope.showCustomer = false;
 	
 	$scope.getCustomer = function() {
-		var url = $location.absUrl() + "api/student/" + $scope.id;
-
+		var url = $location.absUrl() + "api/findByRollNo/"+ $scope.rollNo;
 		var config = {
 			headers : {
 				'Content-Type' : 'application/json;charset=utf-8;'
@@ -156,10 +156,13 @@ app.controller('getcustomerController', function($scope, $http, $location) {
 
 		$http.get(url, config).then(function(response) {
 
-			if (response.data.status == "Done") {
-				$scope.s = response.data;
-				$scope.showCustomer = true;
-			} else {
+
+            if (response.data.status === true) {
+                $scope.getResultMessage = response.data.mess;
+				$scope.allData = response.data;
+                $scope.showCustomer = true;
+
+            } else {
 				$scope.getResultMessage = "rollNo Data Error!";
 			}
 

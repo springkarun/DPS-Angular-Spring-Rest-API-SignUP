@@ -9,14 +9,14 @@ class WebController {
 
     @RequestMapping("/")
     internal fun login(modelAndView: ModelAndView): ModelAndView {
-        modelAndView.viewName = "login"
+        modelAndView.viewName = "home"
         return modelAndView
     }
 
 
-    @RequestMapping("home")
+   /* @RequestMapping("home")
     internal fun home(modelAndView11: ModelAndView): ModelAndView {
         modelAndView11.viewName = "home"
         return modelAndView11
-    }
+    }*/
 }
